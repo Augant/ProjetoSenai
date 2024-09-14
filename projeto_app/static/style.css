@@ -1,0 +1,6 @@
+body {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 100vh; /* Ajusta a altura do contêiner para a altura da viewport */
+}
