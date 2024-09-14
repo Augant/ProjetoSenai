@@ -5,3 +5,7 @@ def index(request):
 
 def form(request):
     return render(request, "partial/form.html")
+
+
+def list(request):
+    return render(request, "partial/list.html")
