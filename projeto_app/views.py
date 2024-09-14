@@ -1,28 +1,23 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from .form import ContatoForm
+from projeto_app.models import Contato
 
-def criar_contato(request):
-    if request.method == 'POST':
-        form = ContatoForm(request.POST)
-        if form.is_valid():
-            form.save()  # Salva os dados no banco de dados
-            messages.success(request, 'Contato criado com sucesso!')
-            return redirect('partial/home.html')  # Redireciona para o mesmo formulário
-        else:
-            messages.error(request, 'Não foi possível criar o contato. Verifique os dados e tente novamente.')
-    else:
-        form = ContatoForm()  # Cria uma instância vazia do formulário
-
-    return render(request, 'partial/form.html', {'form': form})
 
 def index(request):
     return render(request, "partial/home.html")
 
 
 def form(request):
-    return render(request, "partial/form.html")
+    nome = ''
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+        data_nascimento = request.POST.get('data-nascimento')
+        if nome and email and data_nascimento:
+            print(nome)
+            Contato(nome=nome, email=email,
+                    data_nascimento=data_nascimento).save()
 
+    return render(request, "partial/form.html", {'nome': nome})
 
 def list(request):
     return render(request, "partial/list.html")
